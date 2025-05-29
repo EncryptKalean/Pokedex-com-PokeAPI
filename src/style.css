@@ -1,0 +1,142 @@
+:root {
+  --corTema_1: #00b7ff;
+  --corTema_2: #0059ff;
+  --deg: 90deg;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  font-family: "Press Start 2P", cursive;
+}
+
+body {
+  background: linear-gradient(var(--deg), var(--corTema_1), var(--corTema_2));
+  padding: 1%;
+}
+
+.main {
+  text-align: center;
+  margin: 20px auto 80px;
+  max-width: 1100px;
+  width: 100%;
+  background-color: rgb(245, 245, 245);
+  box-shadow: 0 0 20px 0 black;
+  padding: 30px 2%;
+  border-radius: 20px;
+}
+
+.main h1 {
+  text-transform: uppercase;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.pokemon-boxes {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pokemon-box {
+  display: block;
+  border-radius: 10px;
+  width: 29%;
+  margin: 20px 2%;
+  transition: 1s;
+  box-shadow: 4px 4px 15px 0 black;
+}
+
+.pokemon-box:hover, .pokemon-box:focus {
+  box-shadow: 4px 4px 15px 0 aqua;
+}
+
+.pokemon-box img {
+  width: 100%;
+}
+
+.pokemon-box h1,
+.pokemon-box p {
+  color: black;
+  font-size: 21px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.pokemon-box p {
+  display: none;
+}
+
+.selecionada {
+  width: 95%;
+  display: flex;
+}
+
+.selecionada img {
+  width: 30%;
+}
+
+.selecionada p {
+  display: block;
+}
+
+/* --------- Footer ---------- */
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 2px solid white;
+  letter-spacing: 1px;
+  color: white;
+  padding-top: 5px;
+}
+
+
+footer p, footer a{
+  color: inherit;
+  margin: 0;
+}
+
+footer i {
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 25px;
+}
+
+footer i:hover, footer i:focus {
+  background-color: white;
+  color: var(--corTema_2);
+}
+
+footer .redesSociais > *{
+  margin: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .pokemon-box {
+    width: 100%;
+    text-align: center;
+  }
+
+  .pokemon-box img {
+    max-width: 300px;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+
+  footer p{
+    font-size: 10px;
+  }
+}

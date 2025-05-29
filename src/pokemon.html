@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="pokemon.css" />
+    <link rel="icon" href="icon.webp" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="imagens">
+        <div class="imagem_jogo">
+          <h3>Jogo</h3>
+          <img src="${Imagem}" />
+        </div>
+        <div class="imagem_anime">
+          <h3>Anime</h3>
+          <img src="${ImagemHD}" />
+        </div>
+      </div>
+      <div class="informacoes">
+        <h1>${Nome} | #${ID}</h1>
+        <h2 class="tipo">Tipo: ${TipoPT}</h2>
+        <div class="status">
+          <p>Vida: ${Vida}</p>
+          <p>Ataque: ${Ataque}</p>
+          <p>Defesa: ${Defesa}</p>
+        </div>
+        <h2 class="habilidades_texto">Habilidades</h2>
+        <div class="habilidades">
+          <p>${Habilidade_1}</p>
+          <p>${Habilidade_2}</p>
+        </div>
+        <p>Altura: ${Altura} cm</p>
+        <p>Peso: ${Peso} hectogramas</p>
+        <div class="evolucoes_container">
+          <h2>Evoluções</h2>
+          <div class="evolucoes"></div>
+        </div>
+        <div class="descricao">
+          <h2>Descrição</h2>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p>Feito por: Kauan Leandro</p>
+      <div class="redesSociais">
+        <a href="https://github.com/EncryptKalean" target="_blank">
+          <i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/kauanleandro/" target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </div>
+    </footer>
+    <script src="pokemon.js"></script>
+  </body>
+</html>
