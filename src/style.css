@@ -93,6 +93,10 @@ body {
   display: block;
 }
 
+a{
+  text-decoration: none;
+}
+
 /* --------- Footer ---------- */
 
 footer {
