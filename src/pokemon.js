@@ -1,11 +1,11 @@
 let container = document.querySelector('.main'),
-    pokemon_link = localStorage.getItem('pokemon'),
+    pokemon_nome = window.location.href.split('pokemon=')[1],
     pokemon = [],
     Evolucoes = [];
 
-console.log(pokemon_link)
+console.log(pokemon_nome)
 
-fetch(pokemon_link)
+fetch(`https://pokeapi.co/api/v2/pokemon/` + pokemon_nome)
     .then(response => response.json())
     .then(pokemon => {
 

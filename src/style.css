@@ -12,6 +12,11 @@
   font-family: "Press Start 2P", cursive;
 }
 
+*:focus-visible{
+  outline: 3px solid var(--corTema_1);
+  outline-offset: 5px;
+}
+
 body {
   background: linear-gradient(var(--deg), var(--corTema_1), var(--corTema_2));
   padding: 1%;
@@ -51,8 +56,12 @@ body {
   box-shadow: 4px 4px 15px 0 black;
 }
 
-.pokemon-box:hover, .pokemon-box:focus {
+.pokemon-box:hover{
   box-shadow: 4px 4px 15px 0 aqua;
+}
+
+.pokemon-box:focus{
+  box-shadow: none;
 }
 
 .pokemon-box img {
