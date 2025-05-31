@@ -17,7 +17,7 @@ Este projeto é uma Pokédex interativa que consome dados da [PokéAPI](https://
     - Descrição do Pokémon (em inglês).
 - 🧠 Aprendizado prático sobre:
   - Manipulação de APIs REST.
-  - Troca de conteúdo entre páginas via `localStorage`.
+  - Troca de conteúdo entre páginas via `window.location`.
   - Alteração do título da página com base em variáveis.
 
 ## 🛠️ Tecnologias Utilizadas
