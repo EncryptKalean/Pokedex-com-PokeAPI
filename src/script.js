@@ -59,7 +59,7 @@ function pegaPokemons(quantidade) {
 
                                 pokemonBoxes.innerHTML += `
                                     <a href="src/pokemon.html?pokemon=${poke.nome}" class="pokemon-box" style="background:${poke.cor};" >
-                                        <img src="`+ poke.imagem + `" />
+                                        <img loading="lazy" src="`+ poke.imagem + `" />
                                         <div>
                                             <h1>`+ poke.nome + `</h1>
                                             <p>`+ poke.habilidades + `</p>
