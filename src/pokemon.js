@@ -1,7 +1,8 @@
-let container = document.querySelector('.main'),
-    pokemon_nome = window.location.href.split('pokemon=')[1],
-    pokemon = [],
+let pokemon = [],
     Evolucoes = [];
+
+const container = document.querySelector('.main');
+const pokemon_nome = window.location.href.split('pokemon=')[1];
 
 console.log(pokemon_nome)
 
@@ -175,8 +176,8 @@ fetch(`https://pokeapi.co/api/v2/pokemon/` + pokemon_nome)
                     </div>
                 </div>
             `
-        document.body.style.setProperty('--corTipo',TipoCor)
-        document.body.style.setProperty('--deg','0deg')
+        document.body.style.setProperty('--corTipo', TipoCor)
+        document.body.style.setProperty('--deg', '0deg')
     })
 
 // Renderizando as evoluções, se tiver uma.
@@ -198,7 +199,7 @@ function renderizar_Descricao(local, descricao) {
 }
 
 document.body.addEventListener('keydown', (evento) => {
-    if(evento.key === 'Escape'){
-    window.history.back();
+    if (evento.key === 'Escape') {
+        window.history.back();
     }
 })

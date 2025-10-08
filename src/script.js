@@ -1,76 +1,107 @@
-var quantidade_btn = document.getElementById('quantidade');
-quantidade_btn.addEventListener('keyup', () => {
-    pegaPokemons(quantidade_btn.value)
-})
+const container_pokemon_box = document.getElementById('pokemon-boxes');
 
-function pegaPokemons(quantidade) {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=' + quantidade)
-        .then(response => response.json())
-        .then(allpokemon => {
-            var arrayDePokemons = [];
+// Procura os pokémons salvos no localStorage; se não houver, cria um array vazio.
+let arrayPokemons = JSON.parse(localStorage.getItem('pokemonsBaixados')) ?? [];
 
-            allpokemon.results.map((pokemon) => {
-                fetch(pokemon.url)
-                    .then(response => response.json())
-                    .then(pokemonSingle => {
+// Armazena o último número digitado pelo usuário.
+let ultimo_numero = 0;
 
-                        arrayDePokemons.push({
-                            nome: pokemon.name,
-                            url: pokemon.url,
-                            imagem: pokemonSingle.sprites.front_default,
-                            habilidades: pokemonSingle.abilities.map(abilityInfo => abilityInfo.ability.name),
-                            tipo: pokemonSingle.types.map(t => t.type.name),
-                            cor: ''
-                        });
+// Responsável por criar e remover os cards dos pokémons.
+function criandoCard(quant) {
+    // Pega todos os cards existentes
+    const coletando_boxes = Array.from(container_pokemon_box.querySelectorAll('a'));
 
-                        if (arrayDePokemons.length == quantidade) {
-                            var pokemonBoxes = document.querySelector('.pokemon-boxes')
-                            pokemonBoxes.innerHTML = ''
+    // Se o número atual for maior que o último digitado, cria novos cards.
+    if (quant > ultimo_numero) {
+        const fragment = document.createDocumentFragment();
 
-                            arrayDePokemons.forEach((poke, index) => {
+        for (let i = 1; i <= quant; i++) {
+            // Verifica se já existe um card desse pokémon no DOM.
+            const poke = arrayPokemons.find(p => p.ordem == i);
+            const procurando_existente = coletando_boxes.find(b => b.getAttribute('name') === poke.nome);
 
-                                function corElemental(data) {
+            // Se o pokémon ainda não tiver um card, cria um novo.
+            if (!procurando_existente) {
+                const pokemon_container = document.createElement('a');
+                pokemon_container.setAttribute('name', poke.nome);
+                pokemon_container.setAttribute('href', `src/pokemon.html?pokemon=${poke.nome}`);
+                pokemon_container.classList.add('pokemon-box', `${poke.tipo[0]}`);
+                pokemon_container.style.order = poke.ordem;
 
-                                    const cor = {
-                                        normal: "#A8A77A",
-                                        fighting: "#C22E28",
-                                        flying: "#A98FF3",
-                                        poison: "#A33EA1",
-                                        ground: "#E2BF65",
-                                        rock: "#B6A136",
-                                        bug: "#A6B91A",
-                                        ghost: "#735797",
-                                        steel: "#B7B7CE",
-                                        fire: "#EE8130",
-                                        water: "#6390F0",
-                                        grass: "#7AC74C",
-                                        electric: "#F7D02C",
-                                        psychic: "#F95587",
-                                        ice: "#96D9D6",
-                                        dragon: "#6F35FC",
-                                        dark: "#705746",
-                                        fairy: "#D685AD"
-                                    };
+                const img = document.createElement('img');
+                img.setAttribute('src', poke.imagem);
+                img.loading = 'lazy';
+                pokemon_container.append(img);
 
-                                    return cor[data] || "purple"
-                                }
+                const nome_pokemon = document.createElement('h2');
+                nome_pokemon.textContent = poke.nome;
+                pokemon_container.append(nome_pokemon);
 
-                                poke.cor = corElemental(poke.tipo[0])
+                fragment.append(pokemon_container);
+            }
+        }
 
-                                pokemonBoxes.innerHTML += `
-                                    <a href="src/pokemon.html?pokemon=${poke.nome}" class="pokemon-box" style="background:${poke.cor};order: ${poke.url.split('pokemon/')[1].split('/')[0]};" >
-                                        <img loading="lazy" src="`+ poke.imagem + `" />
-                                        <div>
-                                            <h1>`+ poke.nome + `</h1>
-                                            <p>`+ poke.habilidades + `</p>
-                                        </div>
-                                    </a>
-                                    `
-                            })
-                        }
-                    })
-            })
-        })
+        container_pokemon_box.append(fragment);
+    }
 
+    // Se o número atual for menor que o último digitado, remove o excesso de cards.
+    else if (quant < ultimo_numero) for (let i = quant; i < coletando_boxes.length; i++) coletando_boxes[i].remove();
+
+    // Armazena o último número digitado.
+    ultimo_numero = quant;
 }
 
+// Responsável por baixar as informações dos pokémons da API.
+function pokeAPI(quantidade) {
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=' + quantidade)
+        .then(res => res.json())
+        .then(data => {
+
+            data.results.map((pokemon) => {
+
+                // Verifica se o pokémon já existe no array; se não, baixa suas informações.
+                if (!arrayPokemons.find(p => p.nome === pokemon.name)) {
+
+                    fetch(pokemon.url) // buscando as informações desse pokemon....
+                        .then(res => res.json())
+                        .then(pokemonInfos => {
+                            // Obtém a posição do pokémon na Pokédex.
+                            const id = pokemon.url.split('pokemon/')[1].split('/')[0]
+
+                            // Combina todas as informações coletadas em um único objeto Pokémon.
+                            arrayPokemons.push({
+                                nome: pokemon.name,
+                                url: pokemon.url,
+                                ordem: id,
+                                imagem: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+                                habilidades: pokemonInfos.abilities.map(abilityInfo => abilityInfo.ability.name),
+                                tipo: pokemonInfos.types.map(t => t.type.name),
+                            });
+
+                            // Quando todos os pokémons tiverem sido verificados, cria os cards e atualiza o registro dos pokémons já baixados no localStorage.
+                            if (arrayPokemons.length === +quantidade) {
+                                localStorage.setItem('pokemonsBaixados', JSON.stringify(arrayPokemons));
+                                criandoCard(quantidade);
+                            }
+                        });
+
+                }
+            });
+        });
+};
+
+const quantidade_input = document.getElementById('quantidade');
+let timeout;
+
+quantidade_input.addEventListener('keyup', () => {
+
+    clearTimeout(timeout);
+
+    // Aplica um pequeno atraso (debounce) para evitar múltiplas requisições desnecessárias durante a digitação.
+    timeout = setTimeout(() => {
+        if (+quantidade_input.value > arrayPokemons.length) pokeAPI(quantidade_input.value);
+        else criandoCard(quantidade_input.value);
+
+    }, 500)
+
+});
