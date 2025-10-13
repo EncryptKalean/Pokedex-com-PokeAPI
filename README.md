@@ -2,6 +2,10 @@
 
 Este projeto é uma Pokédex interativa que consome dados da [PokéAPI](https://pokeapi.co/) para exibir informações dinâmicas sobre os Pokémon. Ele foi criado com foco no aprendizado e prática de consumo de APIs, manipulação do DOM, responsividade e navegação entre páginas com base em dados dinâmicos.
 
+
+![PokeDex Preview](https://github.com/EncryptKalean/Pokedex-com-PokeAPI/blob/main/src/imagens/pokedex-preview.webp?raw=true)
+
+
 ## 🔍 Funcionalidades
 
 - 🔢 O usuário pode escolher quantos Pokémon deseja visualizar informando a quantidade.
@@ -17,7 +21,7 @@ Este projeto é uma Pokédex interativa que consome dados da [PokéAPI](https://
     - Descrição do Pokémon (em inglês).
 - 🧠 Aprendizado prático sobre:
   - Manipulação de APIs REST.
-  - Troca de conteúdo entre páginas via `window.location`.
+  - Troca de conteúdo entre páginas via `localStorage`.
   - Alteração do título da página com base em variáveis.
 
 ## 🛠️ Tecnologias Utilizadas
